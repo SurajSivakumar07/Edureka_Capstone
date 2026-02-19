@@ -1,6 +1,7 @@
 package com.fytzi.apigateway.filter;
 
 
+import com.fytzi.apigateway.exception.UserNotAuthorized;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -10,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-import com.fytzi.apigateway.filter.JwtUtil;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -26,9 +27,12 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
                 .getHeaders()
                 .getFirst(HttpHeaders.AUTHORIZATION);
 
+        String path = exchange.getRequest().getURI().getPath();
+        String method = exchange.getRequest().getMethod().name();
 
+        log.info("hello");
         // 🚫 Public routes
-        if (exchange.getRequest().getURI().getPath().contains("/auth")) {
+        if (exchange.getRequest().getURI().getPath().contains("/auth") || exchange.getRequest().getURI().getPath().contains("/users")) {
             return chain.filter(exchange);
         }
 
@@ -49,6 +53,23 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         String role = jwtUtil.extractRole(token);
 
 
+        boolean isInventoryWrite =
+                path.startsWith("/inventory")
+                        && ("POST".equals(method) || "PUT".equals(method) || "DELETE".equals(method));
+
+
+        boolean isProductWrite =path.startsWith("/product")
+                &&  ("POST".equals(method) || "PUT".equals(method) || "DELETE".equals(method));
+
+        if(isProductWrite && !"ADMIN".equalsIgnoreCase(role)) {
+            exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+             throw new UserNotAuthorized("User is not authorized");
+        }
+
+        if (isInventoryWrite && !"ADMIN".equalsIgnoreCase(role)) {
+            exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+            throw new UserNotAuthorized("User is not authorized");
+        }
 
 
         // ➕ Add to headers for downstream services
@@ -62,8 +83,10 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         return chain.filter(modifiedExchange);
     }
 
+
     @Override
     public int getOrder() {
         return -1; // Run before other filters
     }
 }
+
