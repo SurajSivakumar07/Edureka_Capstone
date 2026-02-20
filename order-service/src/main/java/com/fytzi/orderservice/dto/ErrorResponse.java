@@ -1,4 +1,4 @@
-package com.fytzi.authservice.dto;
+package com.fytzi.orderservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
