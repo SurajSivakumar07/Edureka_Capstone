@@ -1,0 +1,29 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: native                          # Use local filesystem (no Git required)
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/config-repo
+          # If you prefer absolute path on disk, use:
+          # search-locations: file://${user.home}/ordermanagement_microservies/config-repo
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env,refresh
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.config: DEBUG

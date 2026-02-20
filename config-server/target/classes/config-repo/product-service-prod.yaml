@@ -1,0 +1,20 @@
+# =====================================================
+# product-service PROD profile configuration
+# Served by Config Server at: /product-service/prod
+# Uses PostgreSQL database
+# =====================================================
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/productdb
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true

@@ -24,7 +24,7 @@ public class CategoryController {
     @PostMapping
     @Operation(summary = "Create a category", description = "Adds a new category for products (Admin only)")
     public ResponseEntity<CategoryResponseDto> create(@RequestBody CreateCategoryRequest request) {
-        log.info("Data from paylaod is {}", request.name());
+        log.info("Data from paylaod is {}", request.getName());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(categoryService.create(request));
     }

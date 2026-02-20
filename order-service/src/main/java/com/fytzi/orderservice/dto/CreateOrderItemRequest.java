@@ -1,6 +1,15 @@
 package com.fytzi.orderservice.dto;
 
-public record CreateOrderItemRequest(
-        long productId,
-        int quantity
-) {}
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class CreateOrderItemRequest {
+        private long productId;
+        private int quantity;
+}

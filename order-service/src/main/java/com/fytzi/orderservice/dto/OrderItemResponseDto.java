@@ -1,9 +1,18 @@
 package com.fytzi.orderservice.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 
-public record OrderItemResponseDto(
-        Long productId,
-        Integer quantity,
-        BigDecimal priceAtPurchase
-) {}
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class OrderItemResponseDto {
+        private Long productId;
+        private Integer quantity;
+        private BigDecimal priceAtPurchase;
+}

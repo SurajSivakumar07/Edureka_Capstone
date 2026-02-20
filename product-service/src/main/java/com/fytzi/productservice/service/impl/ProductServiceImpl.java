@@ -26,15 +26,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto createProduct(CreateProductRequest request) {
-        Category category = categoryRepository.findById(request.categoryId())
+        Category category = categoryRepository.findById(request.getCategoryId())
                 .orElseThrow(
-                        () -> new CategoryNotFoundException("Category not found with id: " + request.categoryId()));
+                        () -> new CategoryNotFoundException("Category not found with id: " + request.getCategoryId()));
 
         Product product = Product.builder()
-                .name(request.name())
-                .description(request.description())
-                .quantity(request.quantity())
-                .price(BigDecimal.valueOf(request.price()))
+                .name(request.getName())
+                .description(request.getDescription())
+                .quantity(request.getQuantity())
+                .price(BigDecimal.valueOf(request.getPrice()))
                 .category(category)
                 .isActive(true)
                 .createdAt(LocalDateTime.now())
@@ -120,14 +120,14 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductException("Product not found with id: " + id));
 
-        Category category = categoryRepository.findById(request.categoryId())
+        Category category = categoryRepository.findById(request.getCategoryId())
                 .orElseThrow(
-                        () -> new CategoryNotFoundException("Category not found with id: " + request.categoryId()));
+                        () -> new CategoryNotFoundException("Category not found with id: " + request.getCategoryId()));
 
-        product.setName(request.name());
-        product.setDescription(request.description());
-        product.setQuantity(request.quantity());
-        product.setPrice(BigDecimal.valueOf(request.price()));
+        product.setName(request.getName());
+        product.setDescription(request.getDescription());
+        product.setQuantity(request.getQuantity());
+        product.setPrice(BigDecimal.valueOf(request.getPrice()));
         product.setCategory(category);
 
         Product updated = productRepository.save(product);

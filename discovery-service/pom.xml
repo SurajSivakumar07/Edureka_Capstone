@@ -25,6 +25,12 @@
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
 
+        <!-- ✅ Spring Cloud Config Client -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+
         <!-- Web (Eureka dashboard runs on Tomcat) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

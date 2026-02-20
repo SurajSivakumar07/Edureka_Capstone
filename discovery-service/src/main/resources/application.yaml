@@ -1,11 +1,6 @@
-server:
-  port: 8761
-
+# Bootstrap config: pull full configuration from Config Server
 spring:
   application:
     name: discovery-service
-
-eureka:
-  client:
-    register-with-eureka: false
-    fetch-registry: false
+  config:
+    import: optional:configserver:http://localhost:8888

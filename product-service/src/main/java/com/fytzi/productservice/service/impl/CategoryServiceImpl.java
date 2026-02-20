@@ -20,14 +20,14 @@ public class CategoryServiceImpl implements CategoryService {
         @Override
         public CategoryResponseDto create(CreateCategoryRequest request) {
 
-                categoryRepository.findByName(request.name())
+                categoryRepository.findByName(request.getName())
                                 .ifPresent(c -> {
-                                        throw new RuntimeException("Category already exists: " + request.name());
+                                        throw new RuntimeException("Category already exists: " + request.getName());
                                 });
 
                 Category category = Category.builder()
-                                .name(request.name())
-                                .description(request.description())
+                                .name(request.getName())
+                                .description(request.getDescription())
                                 .createdAt(LocalDateTime.now())
                                 .build();
 
@@ -62,8 +62,8 @@ public class CategoryServiceImpl implements CategoryService {
                 Category category = categoryRepository.findById(id)
                                 .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
 
-                category.setName(request.name());
-                category.setDescription(request.description());
+                category.setName(request.getName());
+                category.setDescription(request.getDescription());
 
                 Category updated = categoryRepository.save(category);
 

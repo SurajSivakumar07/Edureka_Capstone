@@ -32,8 +32,8 @@ public class OrderServiceImpl implements OrderService {
 
         validateProductsExist(request);
 
-        List<Long> productIds = request.items().stream()
-                .map(CreateOrderItemRequest::productId)
+        List<Long> productIds = request.getItems().stream()
+                .map(CreateOrderItemRequest::getProductId)
                 .toList();
 
         List<ProductDto> productDetails = productClient.getProductsDetails(new ProductListRequest(productIds))
@@ -48,8 +48,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void validateProductsExist(CreateOrderRequest request) {
-        List<Long> productIds = request.items().stream()
-                .map(CreateOrderItemRequest::productId)
+        List<Long> productIds = request.getItems().stream()
+                .map(CreateOrderItemRequest::getProductId)
                 .filter(Objects::nonNull)
                 .toList();
         log.info("Validating productIds: {}", productIds);
@@ -87,15 +87,15 @@ public class OrderServiceImpl implements OrderService {
                 .build();
 
         java.util.Map<Long, java.math.BigDecimal> priceMap = productDetails.stream()
-                .collect(java.util.stream.Collectors.toMap(ProductDto::id, ProductDto::price));
+                .collect(java.util.stream.Collectors.toMap(ProductDto::getId, ProductDto::getPrice));
 
-        List<OrderItem> items = request.items().stream().map(item -> {
-            BigDecimal price = priceMap.getOrDefault(item.productId(), BigDecimal.ZERO);
+        List<OrderItem> items = request.getItems().stream().map(item -> {
+            BigDecimal price = priceMap.getOrDefault(item.getProductId(), BigDecimal.ZERO);
 
             return OrderItem.builder()
                     .order(order)
-                    .productId(item.productId())
-                    .quantity(item.quantity())
+                    .productId(item.getProductId())
+                    .quantity(item.getQuantity())
                     .priceAtPurchase(price)
                     .build();
         }).toList();

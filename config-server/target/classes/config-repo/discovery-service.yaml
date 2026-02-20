@@ -1,0 +1,16 @@
+# =====================================================
+# discovery-service configuration
+# Served by Config Server at: /discovery-service/default
+# =====================================================
+
+server:
+  port: 8761
+
+spring:
+  application:
+    name: discovery-service
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false

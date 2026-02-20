@@ -1,0 +1,41 @@
+# =====================================================
+# order-service base configuration
+# Served by Config Server at: /order-service/default
+# =====================================================
+
+server:
+  port: 8085
+
+spring:
+  application:
+    name: order-service
+  profiles:
+    active: dev
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 3000
+            readTimeout: 5000
+            loggerLevel: full
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    root: INFO

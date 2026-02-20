@@ -1,11 +1,20 @@
 package com.fytzi.inventoryservice.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.Instant;
 
-public record ApiErrorResponse(
-        int status,
-        String error,
-        String message,
-        String path,
-        Instant timestamp
-) {}
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class ApiErrorResponse {
+        private int status;
+        private String error;
+        private String message;
+        private String path;
+        private Instant timestamp;
+}

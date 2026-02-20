@@ -1,6 +1,15 @@
 package com.fytzi.inventoryservice.dto;
 
-public record ReserveInventoryRequest(
-        Long productId,
-        Integer quantity
-) {}
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class ReserveInventoryRequest {
+        private Long productId;
+        private Integer quantity;
+}
