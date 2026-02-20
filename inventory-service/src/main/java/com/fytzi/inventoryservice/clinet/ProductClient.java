@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.fytzi.inventoryservice.dto.ProductListRequest;
 
-@FeignClient(name = "PRODUCT-SERVICE") // must match spring.application.name of product service
+@FeignClient(name = "PRODUCT-SERVICE")
 public interface ProductClient {
 
     @GetMapping("/products/{productId}/exists")

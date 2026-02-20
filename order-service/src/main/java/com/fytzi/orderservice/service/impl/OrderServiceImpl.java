@@ -35,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
         List<Long> productIds = request.items().stream()
                 .map(CreateOrderItemRequest::productId)
                 .toList();
+
         List<ProductDto> productDetails = productClient.getProductsDetails(new ProductListRequest(productIds))
                 .getBody();
 
@@ -71,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
             productClient.placeOrder(request);
         } catch (FeignException.BadRequest ex) {
             log.error("Bad request to product service: {}", ex.getMessage());
-            throw new InvalidProductIdException("Invalid product id sent");
+            throw new InvalidProductIdException("No Enough of stock" + ex.getMessage());
         } catch (FeignException ex) {
             log.error("Product service error: {}", ex.getMessage());
             throw new RuntimeException("Product service is currently unavailable");

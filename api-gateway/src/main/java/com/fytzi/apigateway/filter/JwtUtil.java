@@ -1,5 +1,6 @@
 package com.fytzi.apigateway.filter;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -8,13 +9,19 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
-
 @Component
 public class JwtUtil {
 
-    private final SecretKey key = Keys.hmacShaKeyFor(
-            "my-super-secret-key-my-super-secret-key".getBytes()
-    );
+    private final SecretKey key;
+
+    public JwtUtil(@Value("${jwt.secret}") String secret) {
+        System.out.println(
+                "JwtUtil (API Gateway) - Injected secret length: " + (secret != null ? secret.length() : "null"));
+        if (secret != null && secret.length() >= 4) {
+            System.out.println("JwtUtil (API Gateway) - Secret starts with: " + secret.substring(0, 4));
+        }
+        this.key = Keys.hmacShaKeyFor(secret.getBytes());
+    }
 
     public Claims extractClaims(String token) {
 
@@ -29,7 +36,7 @@ public class JwtUtil {
     }
 
     public String extractUserId(String token) {
-        return  extractClaims(token).getSubject();
+        return extractClaims(token).getSubject();
     }
 
     public String extractRole(String token) {

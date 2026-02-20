@@ -22,4 +22,8 @@ public interface ProductService {
     Boolean reduceStock(OrderRequest orderRequest);
 
     List<ProductResponseDto> getProductsByIds(ProductListRequest prodList);
+
+    ProductResponseDto updateProduct(Long id, CreateProductRequest request);
+
+    void deleteProduct(Long id);
 }

@@ -15,47 +15,69 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
-    private final CategoryRepository categoryRepository;
+        private final CategoryRepository categoryRepository;
 
-    @Override
-    public CategoryResponseDto create(CreateCategoryRequest request) {
+        @Override
+        public CategoryResponseDto create(CreateCategoryRequest request) {
 
-        categoryRepository.findByName(request.name())
-                .ifPresent(c -> {
-                    throw new RuntimeException("Category already exists: " + request.name());
-                });
+                categoryRepository.findByName(request.name())
+                                .ifPresent(c -> {
+                                        throw new RuntimeException("Category already exists: " + request.name());
+                                });
 
-        Category category = Category.builder()
-                .name(request.name())
-                .description(request.description())
-                .createdAt(LocalDateTime.now())
-                .build();
+                Category category = Category.builder()
+                                .name(request.name())
+                                .description(request.description())
+                                .createdAt(LocalDateTime.now())
+                                .build();
 
-        Category saved = categoryRepository.save(category);
+                Category saved = categoryRepository.save(category);
 
-        return new CategoryResponseDto(
-                saved.getId(),
-                saved.getName(),
-                saved.getDescription()
-        );
-    }
+                return new CategoryResponseDto(
+                                saved.getId(),
+                                saved.getName(),
+                                saved.getDescription());
+        }
 
-    @Override
-    public List<CategoryResponseDto> getAll() {
-        return categoryRepository.findAll()
-                .stream()
-                .map(c -> new CategoryResponseDto(
-                        c.getId(),
-                        c.getName(),
-                        c.getDescription()
-                ))
-                .toList();
-    }
+        @Override
+        public List<CategoryResponseDto> getAll() {
+                return categoryRepository.findAll()
+                                .stream()
+                                .map(c -> new CategoryResponseDto(
+                                                c.getId(),
+                                                c.getName(),
+                                                c.getDescription()))
+                                .toList();
+        }
 
-    @Override
-    public CategoryResponseDto getById(Long id) {
-        Category c = categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
-        return new CategoryResponseDto(c.getId(), c.getName(), c.getDescription());
-    }
+        @Override
+        public CategoryResponseDto getById(Long id) {
+                Category c = categoryRepository.findById(id)
+                                .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
+                return new CategoryResponseDto(c.getId(), c.getName(), c.getDescription());
+        }
+
+        @Override
+        public CategoryResponseDto update(Long id, CreateCategoryRequest request) {
+                Category category = categoryRepository.findById(id)
+                                .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
+
+                category.setName(request.name());
+                category.setDescription(request.description());
+
+                Category updated = categoryRepository.save(category);
+
+                return new CategoryResponseDto(
+                                updated.getId(),
+                                updated.getName(),
+                                updated.getDescription());
+        }
+
+        @Override
+        public void delete(Long id) {
+                if (!categoryRepository.existsById(id)) {
+                        throw new CategoryNotFoundException("Category not found with id: " + id);
+                }
+                categoryRepository.deleteById(id);
+        }
 }

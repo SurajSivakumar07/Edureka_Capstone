@@ -114,4 +114,33 @@ public class ProductServiceImpl implements ProductService {
                 .map(this::mapToDto)
                 .toList();
     }
+
+    @Override
+    public ProductResponseDto updateProduct(Long id, CreateProductRequest request) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ProductException("Product not found with id: " + id));
+
+        Category category = categoryRepository.findById(request.categoryId())
+                .orElseThrow(
+                        () -> new CategoryNotFoundException("Category not found with id: " + request.categoryId()));
+
+        product.setName(request.name());
+        product.setDescription(request.description());
+        product.setQuantity(request.quantity());
+        product.setPrice(BigDecimal.valueOf(request.price()));
+        product.setCategory(category);
+
+        Product updated = productRepository.save(product);
+        return mapToDto(updated);
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ProductException("Product not found with id: " + id));
+
+        // Soft delete based on isActive field
+        product.setIsActive(false);
+        productRepository.save(product);
+    }
 }
