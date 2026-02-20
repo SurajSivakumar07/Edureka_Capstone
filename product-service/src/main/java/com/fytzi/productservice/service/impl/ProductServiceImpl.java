@@ -1,11 +1,16 @@
 package com.fytzi.productservice.service.impl;
 
-import com.fytzi.productservice.dto.*;
-import com.fytzi.productservice.entity.*;
+import com.fytzi.productservice.dto.CreateProductRequest;
+import com.fytzi.productservice.dto.OrderRequest;
+import com.fytzi.productservice.dto.ProductListRequest;
+import com.fytzi.productservice.dto.ProductResponseDto;
+import com.fytzi.productservice.entity.Category;
+import com.fytzi.productservice.entity.Product;
 import com.fytzi.productservice.exception.CategoryNotFoundException;
 import com.fytzi.productservice.exception.InsufficientStock;
 import com.fytzi.productservice.exception.ProductException;
-import com.fytzi.productservice.repository.*;
+import com.fytzi.productservice.repository.CategoryRepository;
+import com.fytzi.productservice.repository.ProductRepository;
 import com.fytzi.productservice.service.ProductService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

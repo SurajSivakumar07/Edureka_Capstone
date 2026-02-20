@@ -42,7 +42,6 @@ public class UserServiceImpl implements UserService {
         // Validate Role
         validateRole(user.getRole());
 
-        // 🔐 Hash password before saving
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 

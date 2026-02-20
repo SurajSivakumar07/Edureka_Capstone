@@ -1,6 +1,7 @@
 package com.fytzi.productservice.service.impl;
 
-import com.fytzi.productservice.dto.*;
+import com.fytzi.productservice.dto.CategoryResponseDto;
+import com.fytzi.productservice.dto.CreateCategoryRequest;
 import com.fytzi.productservice.entity.Category;
 import com.fytzi.productservice.exception.CategoryNotFoundException;
 import com.fytzi.productservice.repository.CategoryRepository;

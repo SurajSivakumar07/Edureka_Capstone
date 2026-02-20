@@ -1,13 +1,22 @@
 package com.fytzi.productservice.controller;
 
-import com.fytzi.productservice.dto.*;
+import com.fytzi.productservice.dto.CategoryResponseDto;
+import com.fytzi.productservice.dto.CreateCategoryRequest;
 import com.fytzi.productservice.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -20,7 +29,6 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
-    // ADMIN only
     @PostMapping
     @Operation(summary = "Create a category", description = "Adds a new category for products (Admin only)")
     public ResponseEntity<CategoryResponseDto> create(@RequestBody CreateCategoryRequest request) {
@@ -35,7 +43,6 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.getAll());
     }
 
-    // USER + ADMIN
     @GetMapping("/{id}")
     @Operation(summary = "Get category by ID", description = "Finds a specific category using its unique ID")
     public ResponseEntity<CategoryResponseDto> getById(@PathVariable Long id) {

@@ -2,8 +2,14 @@ package com.fytzi.orderservice.service.impl;
 
 import com.fytzi.orderservice.client.InventoryClient;
 import com.fytzi.orderservice.client.ProductClient;
-import com.fytzi.orderservice.dto.*;
-import com.fytzi.orderservice.entity.*;
+import com.fytzi.orderservice.dto.CreateOrderItemRequest;
+import com.fytzi.orderservice.dto.CreateOrderRequest;
+import com.fytzi.orderservice.dto.OrderItemResponseDto;
+import com.fytzi.orderservice.dto.OrderResponseDto;
+import com.fytzi.orderservice.dto.ProductDto;
+import com.fytzi.orderservice.dto.ProductListRequest;
+import com.fytzi.orderservice.entity.Order;
+import com.fytzi.orderservice.entity.OrderItem;
 import com.fytzi.orderservice.exception.InvalidProductIdException;
 import com.fytzi.orderservice.repository.OrderRepository;
 import com.fytzi.orderservice.service.OrderService;
@@ -16,6 +22,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -86,8 +94,8 @@ public class OrderServiceImpl implements OrderService {
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        java.util.Map<Long, java.math.BigDecimal> priceMap = productDetails.stream()
-                .collect(java.util.stream.Collectors.toMap(ProductDto::getId, ProductDto::getPrice));
+        Map<Long, java.math.BigDecimal> priceMap = productDetails.stream()
+                .collect(Collectors.toMap(ProductDto::getId, ProductDto::getPrice));
 
         List<OrderItem> items = request.getItems().stream().map(item -> {
             BigDecimal price = priceMap.getOrDefault(item.getProductId(), BigDecimal.ZERO);

@@ -5,12 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
-
- @Data
- @AllArgsConstructor
- @Builder
- @NoArgsConstructor
+@Data
+@AllArgsConstructor
+@Builder
+@NoArgsConstructor
 public class ErrorResponse {
     private String message;
     private int status;

@@ -29,7 +29,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         String path = exchange.getRequest().getURI().getPath();
         String method = exchange.getRequest().getMethod().name();
 
-        // 🚫 Public routes
+        // Public routes
         if (path.contains("/auth") ||
                 path.contains("/users/create") ||
                 path.contains("/v3/api-docs") ||
@@ -53,7 +53,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
             return exchange.getResponse().setComplete();
         }
 
-        // ✅ Extract values from JWT
+        // Extract values from JWT
         String userId = jwtUtil.extractUserId(token);
         String role = jwtUtil.extractRole(token);
         log.info("userid is {}", userId);
@@ -74,7 +74,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
             throw new UserNotAuthorized("User is not authorized");
         }
 
-        // ➕ Add to headers for downstream services
+        // Add to headers for downstream services
         ServerWebExchange modifiedExchange = exchange.mutate()
                 .request(r -> r
                         .header("X-USER-ID", userId)

@@ -1,9 +1,15 @@
 package com.fytzi.inventoryservice.service.impl;
 
 import com.fytzi.inventoryservice.clinet.ProductClient;
-import com.fytzi.inventoryservice.dto.*;
+import com.fytzi.inventoryservice.dto.CreateOrUpdateInventoryRequest;
+import com.fytzi.inventoryservice.dto.InventoryResponse;
+import com.fytzi.inventoryservice.dto.ReleaseInventoryRequest;
+import com.fytzi.inventoryservice.dto.ReserveInventoryRequest;
 import com.fytzi.inventoryservice.entity.Inventory;
-import com.fytzi.inventoryservice.exception.*;
+import com.fytzi.inventoryservice.exception.InsufficientStockException;
+import com.fytzi.inventoryservice.exception.InvalidInventoryOperationException;
+import com.fytzi.inventoryservice.exception.InvalidQuantityException;
+import com.fytzi.inventoryservice.exception.InventoryNotFoundException;
 import com.fytzi.inventoryservice.repository.InventoryRepository;
 import com.fytzi.inventoryservice.service.InventoryService;
 import lombok.RequiredArgsConstructor;
