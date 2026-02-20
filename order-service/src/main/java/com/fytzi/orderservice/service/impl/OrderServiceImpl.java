@@ -7,12 +7,15 @@ import com.fytzi.orderservice.entity.*;
 import com.fytzi.orderservice.repository.OrderRepository;
 import com.fytzi.orderservice.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -22,22 +25,39 @@ public class OrderServiceImpl implements OrderService {
     private final InventoryClient inventoryClient;
 
     @Override
-    public OrderResponseDto createOrder(CreateOrderRequest request) {
+    public OrderResponseDto createOrder(CreateOrderRequest request,String userId) {
 
         BigDecimal total = BigDecimal.ZERO;
 
+        List<Long> productIds = request.items().stream()
+                .map(CreateOrderItemRequest::productId)
+                .filter(Objects::nonNull)
+                .toList();
+        log.info("productIds: {}", productIds);
+
+        ProductListRequest prodList = new ProductListRequest(productIds);
+
+        //calling produdct service to check if product id is valid
+        Boolean result=productClient.checkProductExsists(prodList);
+        log.info("value",request);
+
+        Boolean checkIfQuantityReduced=false;
+        //Check is quanity is present and place order
+        if(result){
+            checkIfQuantityReduced=productClient.placeOrder(request);
+        }
+
+
+        //userDetails in the list
         Order order = Order.builder()
-                .userId(request.userId())
+                .userId(Long.parseLong(userId))
                 .status("CREATED")
                 .createdAt(LocalDateTime.now())
                 .build();
 
         List<OrderItem> items = request.items().stream().map(item -> {
-            var product = productClient.getProduct(item.productId());
-            inventoryClient.reserve(new InventoryReserveRequest(item.productId(), item.quantity()));
 
-            BigDecimal price = new BigDecimal(product.price());
-            BigDecimal lineTotal = price.multiply(BigDecimal.valueOf(item.quantity()));
+            BigDecimal price = new BigDecimal(9000);
 
             return OrderItem.builder()
                     .order(order)
@@ -47,16 +67,10 @@ public class OrderServiceImpl implements OrderService {
                     .build();
         }).toList();
 
-        // calculate total
-        total = items.stream()
-                .map(i -> i.getPriceAtPurchase().multiply(BigDecimal.valueOf(i.getQuantity())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
         order.setItems(items);
         order.setTotalAmount(total);
 
         Order saved = orderRepository.save(order);
-
         return new OrderResponseDto(
                 saved.getId(),
                 saved.getUserId(),

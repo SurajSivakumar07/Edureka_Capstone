@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: ORDER-SERVICE
+    name: order-service
 
   datasource:
     url: jdbc:postgresql://localhost:5432/orderdb
@@ -45,27 +45,7 @@ management:
     health:
       show-details: always
 
-# Resilience4j circuit breaker config (for Inventory & Product calls)
-resilience4j:
-  circuitbreaker:
-    instances:
-      inventoryService:
-        registerHealthIndicator: true
-        slidingWindowSize: 10
-        minimumNumberOfCalls: 5
-        failureRateThreshold: 50
-        waitDurationInOpenState: 10s
-        permittedNumberOfCallsInHalfOpenState: 3
-
-      productService:
-        registerHealthIndicator: true
-        slidingWindowSize: 10
-        minimumNumberOfCalls: 5
-        failureRateThreshold: 50
-        waitDurationInOpenState: 10s
-        permittedNumberOfCallsInHalfOpenState: 3
 
 logging:
   level:
-    org.springframework.cloud.openfeign: DEBUG
-    feign: DEBUG
+    root: INFO

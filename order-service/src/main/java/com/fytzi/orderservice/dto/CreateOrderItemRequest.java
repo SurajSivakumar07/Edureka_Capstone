@@ -1,6 +1,6 @@
 package com.fytzi.orderservice.dto;
 
 public record CreateOrderItemRequest(
-        Long productId,
-        Integer quantity
+        long productId,
+        int quantity
 ) {}

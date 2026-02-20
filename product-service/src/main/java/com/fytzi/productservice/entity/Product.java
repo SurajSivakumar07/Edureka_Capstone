@@ -25,6 +25,9 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @JoinColumn(name = "quantity", nullable = false)
+    private  Long quantity;
+
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 

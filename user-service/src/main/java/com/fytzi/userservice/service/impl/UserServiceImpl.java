@@ -20,11 +20,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse getByEmail(String email) {
-         User user=userRepository.findByEmail(email)
+        User user=userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("Invalid username or password"));
 
-
         return UserResponse.builder()
+                .userId(user.getUserId())
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .role(user.getRole())
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
         // 🔐 Hash password before saving
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-         userRepository.save(user);
+        userRepository.save(user);
 
 
         return UserRegisterResponse.builder()

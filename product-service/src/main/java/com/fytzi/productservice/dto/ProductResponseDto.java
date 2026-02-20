@@ -6,6 +6,7 @@ public record ProductResponseDto(
         Long id,
         String name,
         String description,
+        Long quantity,
         BigDecimal price,
         Long categoryId,
         String categoryName,

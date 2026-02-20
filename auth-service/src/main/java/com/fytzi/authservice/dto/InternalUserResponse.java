@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 public class InternalUserResponse {
+    private Long userId;
     private String email;
     private String password;
     private String role;

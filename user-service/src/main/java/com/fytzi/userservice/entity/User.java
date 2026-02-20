@@ -2,6 +2,7 @@ package com.fytzi.userservice.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -16,10 +17,11 @@ import lombok.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userId;
 
     @NotBlank(message = "Email cannot be empty")
     @Column(nullable = false, unique = true)
+    @Email
     private String email;
 
     @NotBlank(message = "Password cannot be empty")

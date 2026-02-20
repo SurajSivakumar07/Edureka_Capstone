@@ -17,15 +17,19 @@ public class JwtUtil {
     );
 
     public Claims extractClaims(String token) {
-        return Jwts.parser()
+
+        Claims claims = Jwts.parser()
                 .verifyWith(key)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+
+        System.out.println("JWT Claims = " + claims);
+        return claims;
     }
 
     public String extractUserId(String token) {
-        return extractClaims(token).getSubject();
+        return  extractClaims(token).getSubject();
     }
 
     public String extractRole(String token) {

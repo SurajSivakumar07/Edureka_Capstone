@@ -30,7 +30,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         String path = exchange.getRequest().getURI().getPath();
         String method = exchange.getRequest().getMethod().name();
 
-        log.info("hello");
+
         // 🚫 Public routes
         if (exchange.getRequest().getURI().getPath().contains("/auth") || exchange.getRequest().getURI().getPath().contains("/users")) {
             return chain.filter(exchange);
@@ -49,9 +49,9 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         }
 
         // ✅ Extract values from JWT
-       String userId = jwtUtil.extractUserId(token);
+        String userId = jwtUtil.extractUserId(token);
         String role = jwtUtil.extractRole(token);
-
+        log.info("userid is {}",userId);
 
         boolean isInventoryWrite =
                 path.startsWith("/inventory")

@@ -21,9 +21,9 @@ public class ProductController {
                 .body(productService.createProduct(request));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductResponseDto> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(productService.getActiveProduct(id));
+    @PostMapping("/validation")
+    public ResponseEntity<Boolean>getById(@RequestBody ProductListRequest prodList){
+        return ResponseEntity.ok(productService.getActiveProduct(prodList));
     }
 
     @GetMapping
@@ -34,6 +34,14 @@ public class ProductController {
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<ProductResponseDto>> getByCategory(@PathVariable Long categoryId) {
         return ResponseEntity.ok(productService.getProductsByCategory(categoryId));
+    }
+
+
+    @PostMapping("/reduceStock")
+    public ResponseEntity<Boolean>  reduceStock(@RequestBody OrderRequest orderRequest){
+
+        return ResponseEntity.ok(productService.reduceStock(orderRequest));
+
     }
 
 }

@@ -1,4 +1,5 @@
 package com.fytzi.orderservice.dto;
 
-public class ProductListRequest {
-}
+import java.util.List;
+
+public record ProductListRequest(List<Long> productId) {}

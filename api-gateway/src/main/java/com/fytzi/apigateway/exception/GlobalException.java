@@ -13,7 +13,7 @@ public class GlobalException {
     public ResponseEntity<ErrorResponse> handleUnauthorised(String messeage){
 
         ErrorResponse errorResponse=ErrorResponse.builder()
-                .message(messeage)
+                .message("User not authorized")
                 .status(401).build();
 
         return ResponseEntity.ok().body(errorResponse);

@@ -1,4 +1,4 @@
-package com.fytzi.authservice.service.impl;
+package com.fytzi.authservice.service.imp;
 
 import com.fytzi.authservice.client.UserClient;
 import com.fytzi.authservice.dto.InternalUserResponse;
@@ -28,7 +28,7 @@ public class AuthServiceImp implements AuthService {
         }
 
         String token = jwtUtil.generateToken(
-                user.getEmail(),
+                String.valueOf(user.getUserId()),
                 user.getRole()
         );
 
