@@ -1,9 +1,3 @@
-# =====================================================
-# product-service PROD profile configuration
-# Served by Config Server at: /product-service/prod
-# Uses PostgreSQL database
-# =====================================================
-
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/productdb

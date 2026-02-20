@@ -1,8 +1,3 @@
-# =====================================================
-# api-gateway configuration
-# Served by Config Server at: /api-gateway/default
-# =====================================================
-
 server:
   port: 8080
 

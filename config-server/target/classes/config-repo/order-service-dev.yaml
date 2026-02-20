@@ -1,9 +1,3 @@
-# =====================================================
-# order-service DEV profile configuration
-# Served by Config Server at: /order-service/dev
-# Uses H2 in-memory database
-# =====================================================
-
 spring:
   datasource:
     url: jdbc:h2:mem:orderdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE

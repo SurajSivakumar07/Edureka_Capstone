@@ -1,9 +1,3 @@
-# =====================================================
-# inventory-service PROD profile configuration
-# Served by Config Server at: /inventory-service/prod
-# Uses PostgreSQL database
-# =====================================================
-
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/inventorydb

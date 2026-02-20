@@ -1,9 +1,3 @@
-# =====================================================
-# order-service PROD profile configuration
-# Served by Config Server at: /order-service/prod
-# Uses PostgreSQL database
-# =====================================================
-
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/orderdb

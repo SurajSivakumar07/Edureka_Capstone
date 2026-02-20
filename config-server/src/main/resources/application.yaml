@@ -4,15 +4,12 @@ server:
 spring:
   application:
     name: config-server
-  profiles:
-    active: native                          # Use local filesystem (no Git required)
   cloud:
     config:
       server:
-        native:
-          search-locations: classpath:/config-repo
-          # If you prefer absolute path on disk, use:
-          # search-locations: file://${user.home}/ordermanagement_microservies/config-repo
+        git:
+          uri: https://github.com/SurajSivakumar07/config-repo
+          default-label: main # or master based on the branch
 
 management:
   endpoints:
