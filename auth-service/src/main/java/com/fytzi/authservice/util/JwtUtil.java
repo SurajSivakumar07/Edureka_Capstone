@@ -15,8 +15,7 @@ public class JwtUtil {
             "my-super-secret-key-my-super-secret-key".getBytes()
     );
 
-    private final long EXPIRATION = 1000 * 60 * 60; // 1 hour
-
+    private final long EXPIRATION = 1000L * 60 * 60 * 24 * 365 * 10;
     public String generateToken(String userId, String role) {
         return Jwts.builder()
                 .subject(userId)

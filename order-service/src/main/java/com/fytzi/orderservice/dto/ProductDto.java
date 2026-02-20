@@ -1,3 +1,6 @@
 package com.fytzi.orderservice.dto;
 
-public record ProductDto(Long id, String name, String price) {}
+import java.math.BigDecimal;
+
+public record ProductDto(Long id, String name, BigDecimal price) {
+}

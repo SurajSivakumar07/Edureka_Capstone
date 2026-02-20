@@ -9,9 +9,11 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-
-    @Query("SELECT p.id FROM Product p WHERE p.id IN :ids")
+    @Query("SELECT p.id FROM Product p WHERE p.id IN :ids AND p.isActive = true")
     List<Long> findExistingIds(@Param("ids") List<Long> ids);
+
+    @Query(value = "SELECT * FROM products WHERE id IN (:ids)", nativeQuery = true)
+    List<Product> findAllByIdNative(@Param("ids") List<Long> ids);
 
     @Query(value = "SELECT * FROM products WHERE category_id = :categoryId AND is_active = true", nativeQuery = true)
     List<Product> findActiveByCategory(@Param("categoryId") Long categoryId);
@@ -21,9 +23,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Modifying
     @Query(value = """
-       UPDATE products 
-       SET quantity = quantity - :qty 
-       WHERE id = :productId AND  quantity >= :qty
-    """,nativeQuery = true)
+               UPDATE products
+               SET quantity = quantity - :qty
+               WHERE id = :productId AND  quantity >= :qty
+            """, nativeQuery = true)
     int reserveStock(Long productId, int qty);
 }

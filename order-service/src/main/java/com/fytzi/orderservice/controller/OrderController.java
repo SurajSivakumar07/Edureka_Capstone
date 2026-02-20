@@ -21,16 +21,21 @@ public class OrderController {
 
     @PostMapping("/create")
     public ResponseEntity<OrderResponseDto> create(
-            @RequestHeader("X-USER-ID") String userId,@RequestBody CreateOrderRequest request) {
+            @RequestHeader("X-USER-ID") String userId, @RequestBody CreateOrderRequest request) {
 
-        log.info("userId raw value: [{}]", userId);
+        log.info("userId  value: [{}]", userId);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(orderService.createOrder(request,userId));
+                .body(orderService.createOrder(request, userId));
     }
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<OrderResponseDto>> getUserOrders(@PathVariable Long userId) {
         return ResponseEntity.ok(orderService.getOrdersByUser(userId));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OrderResponseDto>> getAllOrders() {
+        return ResponseEntity.ok(orderService.getAllOrders());
     }
 }

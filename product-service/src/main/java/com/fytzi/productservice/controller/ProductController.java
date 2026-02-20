@@ -22,7 +22,7 @@ public class ProductController {
     }
 
     @PostMapping("/validation")
-    public ResponseEntity<Boolean>getById(@RequestBody ProductListRequest prodList){
+    public ResponseEntity<Boolean> getById(@RequestBody ProductListRequest prodList) {
         return ResponseEntity.ok(productService.getActiveProduct(prodList));
     }
 
@@ -36,12 +36,22 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductsByCategory(categoryId));
     }
 
-
     @PostMapping("/reduceStock")
-    public ResponseEntity<Boolean>  reduceStock(@RequestBody OrderRequest orderRequest){
-
+    public ResponseEntity<Boolean> reduceStock(@RequestBody OrderRequest orderRequest) {
         return ResponseEntity.ok(productService.reduceStock(orderRequest));
-
     }
 
+    @GetMapping("/{productId}/exists")
+    public ResponseEntity<Void> validateProductExists(@PathVariable Long productId) {
+        if (!productService.getActiveProduct(productId)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/details")
+    public ResponseEntity<List<ProductResponseDto>> getProductsDetails(@RequestBody ProductListRequest prodList) {
+        return ResponseEntity.ok(productService.getProductsByIds(prodList));
+    }
+    }
 }

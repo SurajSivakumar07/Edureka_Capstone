@@ -1,0 +1,325 @@
+[INFO] Scanning for projects...
+Downloading from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/io/github/git-commit-id/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/flywaydb/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/jooq/maven-metadata.xml
+Progress (1): 375 BProgress (2): 375 B | 398 BProgress (3): 375 B | 398 B | 234 B                                   Downloaded from central: https://repo.maven.apache.org/maven2/org/jooq/maven-metadata.xml (398 B at 1.9 kB/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/org/flywaydb/maven-metadata.xml (234 B at 1.1 kB/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/maven-metadata.xml (375 B at 1.8 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/graalvm/buildtools/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/liquibase/maven-metadata.xml
+Progress (1): 249 BProgress (2): 249 B | 243 B                           Downloaded from central: https://repo.maven.apache.org/maven2/org/liquibase/maven-metadata.xml (243 B at 13 kB/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/maven-metadata.xml (249 B at 13 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml
+Progress (1): 242 B                   Downloaded from central: https://repo.maven.apache.org/maven2/org/graalvm/buildtools/maven-metadata.xml (242 B at 11 kB/s)
+Progress (1): 255 B                   Downloaded from central: https://repo.maven.apache.org/maven2/io/github/git-commit-id/maven-metadata.xml (255 B at 1.0 kB/s)
+Progress (1): 4.6 kBProgress (1): 10 kB Progress (1): 14 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml (14 kB at 649 kB/s)
+Progress (1): 3.1 kBProgress (1): 8.0 kBProgress (1): 8.0 kBProgress (1): 13 kB Progress (1): 17 kBProgress (1): 20 kBProgress (1): 21 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml (21 kB at 248 kB/s)
+[INFO] 
+[INFO] ---------------------< com.fytzi:product-service >----------------------
+[INFO] Building product-service 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.5:run (default-cli) > test-compile @ product-service >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ product-service ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ product-service ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ product-service ---
+[INFO] skip non existing resourceDirectory /Users/surajs/ordermanagement_microservies/product-service/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ product-service ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:3.2.5:run (default-cli) < test-compile @ product-service <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.5:run (default-cli) @ product-service ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-02-20T22:22:39.788+05:30  INFO 12756 --- [product-service] [           main] c.f.p.ProductServiceApplication          : Starting ProductServiceApplication using Java 17.0.4.1 with PID 12756 (/Users/surajs/ordermanagement_microservies/product-service/target/classes started by surajs in /Users/surajs/ordermanagement_microservies/product-service)
+2026-02-20T22:22:39.791+05:30  INFO 12756 --- [product-service] [           main] c.f.p.ProductServiceApplication          : No active profile set, falling back to 1 default profile: "default"
+2026-02-20T22:22:40.107+05:30  INFO 12756 --- [product-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-20T22:22:40.184+05:30  INFO 12756 --- [product-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 70 ms. Found 2 JPA repository interfaces.
+2026-02-20T22:22:40.287+05:30  INFO 12756 --- [product-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=9272225e-1a2c-3625-8c89-ca8854caa0aa
+2026-02-20T22:22:40.419+05:30  WARN 12756 --- [product-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-02-20T22:22:40.424+05:30  WARN 12756 --- [product-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-02-20T22:22:40.508+05:30  INFO 12756 --- [product-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8083 (http)
+2026-02-20T22:22:40.518+05:30  INFO 12756 --- [product-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-20T22:22:40.519+05:30  INFO 12756 --- [product-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-02-20T22:22:40.553+05:30  INFO 12756 --- [product-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-20T22:22:40.553+05:30  INFO 12756 --- [product-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 741 ms
+2026-02-20T22:22:40.619+05:30  INFO 12756 --- [product-service] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-20T22:22:40.646+05:30  INFO 12756 --- [product-service] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-20T22:22:40.662+05:30  INFO 12756 --- [product-service] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-20T22:22:40.763+05:30  INFO 12756 --- [product-service] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-20T22:22:40.775+05:30  INFO 12756 --- [product-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-20T22:22:40.901+05:30  INFO 12756 --- [product-service] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1a01ffff
+2026-02-20T22:22:40.902+05:30  INFO 12756 --- [product-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-20T22:22:40.944+05:30  WARN 12756 --- [product-service] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-20T22:22:41.295+05:30  INFO 12756 --- [product-service] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-20T22:22:41.363+05:30  INFO 12756 --- [product-service] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-20T22:22:41.467+05:30  INFO 12756 --- [product-service] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-20T22:22:41.644+05:30  WARN 12756 --- [product-service] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-20T22:22:41.817+05:30  INFO 12756 --- [product-service] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2026-02-20T22:22:41.831+05:30  WARN 12756 --- [product-service] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-02-20T22:22:41.852+05:30  INFO 12756 --- [product-service] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-02-20T22:22:41.888+05:30  INFO 12756 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-02-20T22:22:41.890+05:30  INFO 12756 --- [product-service] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-02-20T22:22:41.900+05:30  INFO 12756 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-02-20T22:22:41.900+05:30  INFO 12756 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-02-20T22:22:41.900+05:30  INFO 12756 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-02-20T22:22:41.900+05:30  INFO 12756 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-02-20T22:22:41.900+05:30  INFO 12756 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-02-20T22:22:41.900+05:30  INFO 12756 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2026-02-20T22:22:41.900+05:30  INFO 12756 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-02-20T22:22:42.048+05:30  INFO 12756 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-02-20T22:22:42.049+05:30  INFO 12756 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2026-02-20T22:22:42.050+05:30  INFO 12756 --- [product-service] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-02-20T22:22:42.051+05:30  INFO 12756 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1771606362051 with initial instances count: 6
+2026-02-20T22:22:42.052+05:30  INFO 12756 --- [product-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application PRODUCT-SERVICE with eureka with status UP
+2026-02-20T22:22:42.052+05:30  INFO 12756 --- [product-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1771606362052, current=UP, previous=STARTING]
+2026-02-20T22:22:42.053+05:30  INFO 12756 --- [product-service] [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PRODUCT-SERVICE/192.168.0.102:product-service:8083: registering service...
+2026-02-20T22:22:42.060+05:30  INFO 12756 --- [product-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8083 (http) with context path ''
+2026-02-20T22:22:42.060+05:30  INFO 12756 --- [product-service] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8083
+2026-02-20T22:22:42.067+05:30  INFO 12756 --- [product-service] [           main] c.f.p.ProductServiceApplication          : Started ProductServiceApplication in 2.484 seconds (process running for 2.664)
+2026-02-20T22:22:42.068+05:30  INFO 12756 --- [product-service] [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PRODUCT-SERVICE/192.168.0.102:product-service:8083 - registration status: 204
+2026-02-20T22:23:22.220+05:30  INFO 12756 --- [product-service] [nio-8083-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-20T22:23:22.220+05:30  INFO 12756 --- [product-service] [nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-20T22:23:22.221+05:30  INFO 12756 --- [product-service] [nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+Hibernate: 
+    SELECT
+        * 
+    FROM
+        products 
+    WHERE
+        is_active = true 
+    ORDER BY
+        created_at DESC
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.name 
+    from
+        categories c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.name 
+    from
+        categories c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.name 
+    from
+        categories c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    SELECT
+        * 
+    FROM
+        products 
+    WHERE
+        is_active = true 
+    ORDER BY
+        created_at DESC
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.name 
+    from
+        categories c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.name 
+    from
+        categories c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    SELECT
+        * 
+    FROM
+        products 
+    WHERE
+        is_active = true 
+    ORDER BY
+        created_at DESC
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.name 
+    from
+        categories c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.name 
+    from
+        categories c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    select
+        p1_0.id 
+    from
+        products p1_0 
+    where
+        p1_0.id in (?, ?) 
+        and p1_0.is_active=true
+Hibernate: 
+    SELECT
+        * 
+    FROM
+        products 
+    WHERE
+        is_active = true 
+    ORDER BY
+        created_at DESC
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.name 
+    from
+        categories c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.name 
+    from
+        categories c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    UPDATE
+        products    
+    SET
+        quantity = quantity - ?    
+    WHERE
+        id = ? 
+        AND  quantity >= ? 
+Hibernate: 
+    select
+        p1_0.id 
+    from
+        products p1_0 
+    where
+        p1_0.id in (?) 
+        and p1_0.is_active=true
+Hibernate: 
+    SELECT
+        * 
+    FROM
+        products 
+    WHERE
+        is_active = true 
+    ORDER BY
+        created_at DESC
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.name 
+    from
+        categories c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    UPDATE
+        products    
+    SET
+        quantity = quantity - ?    
+    WHERE
+        id = ? 
+        AND  quantity >= ? 
+Hibernate: 
+    select
+        p1_0.id 
+    from
+        products p1_0 
+    where
+        p1_0.id in (?) 
+        and p1_0.is_active=true
+Hibernate: 
+    SELECT
+        * 
+    FROM
+        products 
+    WHERE
+        is_active = true 
+    ORDER BY
+        created_at DESC
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.name 
+    from
+        categories c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    UPDATE
+        products    
+    SET
+        quantity = quantity - ?    
+    WHERE
+        id = ? 
+        AND  quantity >= ? 
+2026-02-20T22:27:41.914+05:30  INFO 12756 --- [product-service] [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+Hibernate: 
+    select
+        p1_0.id 
+    from
+        products p1_0 
+    where
+        p1_0.id in (?) 
+        and p1_0.is_active=true

@@ -1,5 +1,7 @@
 package com.fytzi.inventoryservice.service;
 
+import java.util.List;
+
 import com.fytzi.inventoryservice.dto.*;
 
 public interface InventoryService {
@@ -10,5 +12,5 @@ public interface InventoryService {
 
     void release(ReleaseInventoryRequest request);
 
-    InventoryResponse createOrUpdate(CreateOrUpdateInventoryRequest request);
+    List<InventoryResponse> createOrUpdate(CreateOrUpdateInventoryRequest request);
 }

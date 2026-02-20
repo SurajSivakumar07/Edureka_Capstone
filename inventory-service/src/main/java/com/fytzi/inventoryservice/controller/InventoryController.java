@@ -18,12 +18,14 @@ public class InventoryController {
     public ResponseEntity<InventoryResponse> getStock(@PathVariable Long productId) {
         return ResponseEntity.ok(inventoryService.getStock(productId));
     }
+
     // Called by Order Service
     @PostMapping("/reserve")
     public ResponseEntity<Void> reserve(@RequestBody ReserveInventoryRequest request) {
         inventoryService.reserve(request);
         return ResponseEntity.ok().build();
     }
+
     // Called by Order Service (on cancel/failure)
     @PostMapping("/release")
     public ResponseEntity<Void> release(@RequestBody ReleaseInventoryRequest request) {
@@ -33,7 +35,8 @@ public class InventoryController {
 
     // ADMIN: create/update stock
     @PostMapping("/upsert")
-    public ResponseEntity<InventoryResponse> upsert(@RequestBody CreateOrUpdateInventoryRequest request) {
+    public ResponseEntity<java.util.List<InventoryResponse>> upsert(
+            @RequestBody CreateOrUpdateInventoryRequest request) {
         return ResponseEntity.ok(inventoryService.createOrUpdate(request));
     }
 }

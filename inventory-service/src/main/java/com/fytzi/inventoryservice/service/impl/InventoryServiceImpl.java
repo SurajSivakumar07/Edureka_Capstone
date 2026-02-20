@@ -28,8 +28,7 @@ public class InventoryServiceImpl implements InventoryService {
                 inv.getProductId(),
                 inv.getAvailableQty(),
                 inv.getReservedQty(),
-                inv.getAvailableQty() > 0
-        );
+                inv.getAvailableQty() > 0);
     }
 
     @Override
@@ -41,8 +40,7 @@ public class InventoryServiceImpl implements InventoryService {
 
         int updated = inventoryRepository.reserveStock(
                 request.productId(),
-                request.quantity()
-        );
+                request.quantity());
 
         if (updated == 0) {
             throw new InsufficientStockException(request.productId(), request.quantity());
@@ -58,51 +56,49 @@ public class InventoryServiceImpl implements InventoryService {
 
         int updated = inventoryRepository.releaseStock(
                 request.productId(),
-                request.quantity()
-        );
+                request.quantity());
 
         if (updated == 0) {
             throw new InvalidInventoryOperationException(
-                    "No reserved stock to release for productId: " + request.productId()
-            );
+                    "No reserved stock to release for productId: " + request.productId());
         }
     }
 
     @Override
     @Transactional
-    public InventoryResponse createOrUpdate(CreateOrUpdateInventoryRequest request) {
+    public java.util.List<InventoryResponse> createOrUpdate(CreateOrUpdateInventoryRequest request) {
+        return request.getInventories().stream().map(item -> {
+            if (item.productId() == null) {
+                throw new InvalidInventoryOperationException("Product ID cannot be null");
+            }
+            if (item.availableQty() == null || item.availableQty() < 0) {
+                throw new InvalidQuantityException("Available qty must be >= 0 for productId=" + item.productId());
+            }
 
-        if (request.availableQty() == null || request.availableQty() < 0) {
-            throw new InvalidInventoryOperationException("Available quantity cannot be negative");
-        }
+            try {
+                productClient.validateProductExists(item.productId());
+            } catch (Exception ex) {
+                throw new InvalidInventoryOperationException(
+                        "Cannot create inventory. Product does not exist: " + item.productId());
+            }
 
-        try {
-            productClient.validateProductExists(request.productId());
-        } catch (Exception ex) {
-            throw new InvalidInventoryOperationException(
-                    "Cannot create inventory. Product does not exist: " + request.productId()
-            );
-        }
+            Inventory inv = inventoryRepository.findByProductId(item.productId())
+                    .orElse(Inventory.builder()
+                            .productId(item.productId())
+                            .availableQty(0)
+                            .reservedQty(0)
+                            .build());
 
+            inv.setAvailableQty(item.availableQty());
+            inv.setUpdatedAt(LocalDateTime.now());
 
-        Inventory inv = inventoryRepository.findByProductId(request.productId())
-                .orElse(Inventory.builder()
-                        .productId(request.productId())
-                        .availableQty(0)
-                        .reservedQty(0)
-                        .build()
-                );
+            Inventory saved = inventoryRepository.save(inv);
 
-        inv.setAvailableQty(request.availableQty());
-        inv.setUpdatedAt(LocalDateTime.now());
-
-        Inventory saved = inventoryRepository.save(inv);
-
-        return new InventoryResponse(
-                saved.getProductId(),
-                saved.getAvailableQty(),
-                saved.getReservedQty(),
-                saved.getAvailableQty() > 0
-        );
+            return new InventoryResponse(
+                    saved.getProductId(),
+                    saved.getAvailableQty(),
+                    saved.getReservedQty(),
+                    saved.getAvailableQty() > 0);
+        }).collect(java.util.stream.Collectors.toList());
     }
 }

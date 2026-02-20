@@ -13,11 +13,13 @@ public interface ProductService {
 
     Boolean getActiveProduct(Long id);
 
-    Boolean  getActiveProduct(ProductListRequest prodList);
+    Boolean getActiveProduct(ProductListRequest prodList);
 
     List<ProductResponseDto> getAllActiveProducts();
 
     List<ProductResponseDto> getProductsByCategory(Long categoryId);
 
     Boolean reduceStock(OrderRequest orderRequest);
+
+    List<ProductResponseDto> getProductsByIds(ProductListRequest prodList);
 }

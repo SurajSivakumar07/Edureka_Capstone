@@ -31,9 +31,16 @@ public class OrderServiceImpl implements OrderService {
         log.info("Creating order for user: {}", userId);
 
         validateProductsExist(request);
+
+        List<Long> productIds = request.items().stream()
+                .map(CreateOrderItemRequest::productId)
+                .toList();
+        List<ProductDto> productDetails = productClient.getProductsDetails(new ProductListRequest(productIds))
+                .getBody();
+
         placeOrderInProductService(request);
 
-        Order order = mapToOrderEntity(request, userId);
+        Order order = mapToOrderEntity(request, userId, productDetails);
         Order saved = orderRepository.save(order);
 
         return mapToOrderResponseDto(saved);
@@ -71,17 +78,18 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    private Order mapToOrderEntity(CreateOrderRequest request, String userId) {
+    private Order mapToOrderEntity(CreateOrderRequest request, String userId, List<ProductDto> productDetails) {
         Order order = Order.builder()
                 .userId(Long.parseLong(userId))
                 .status("CREATED")
                 .createdAt(LocalDateTime.now())
-                .totalAmount(BigDecimal.ZERO) // Total should be calculated or passed
                 .build();
 
+        java.util.Map<Long, java.math.BigDecimal> priceMap = productDetails.stream()
+                .collect(java.util.stream.Collectors.toMap(ProductDto::id, ProductDto::price));
+
         List<OrderItem> items = request.items().stream().map(item -> {
-            // TODO: Fetch actual price from Product service instead of hardcoding
-            BigDecimal price = new BigDecimal(9000);
+            BigDecimal price = priceMap.getOrDefault(item.productId(), BigDecimal.ZERO);
 
             return OrderItem.builder()
                     .order(order)
@@ -91,7 +99,12 @@ public class OrderServiceImpl implements OrderService {
                     .build();
         }).toList();
 
+        BigDecimal totalAmount = items.stream()
+                .map(item -> item.getPriceAtPurchase().multiply(new BigDecimal(item.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
         order.setItems(items);
+        order.setTotalAmount(totalAmount);
         return order;
     }
 
@@ -112,6 +125,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderResponseDto> getOrdersByUser(Long userId) {
         return orderRepository.findByUserId(userId)
+                .stream()
+                .map(this::mapToOrderResponseDto)
+                .toList();
+    }
+
+    @Override
+    public List<OrderResponseDto> getAllOrders() {
+        return orderRepository.findAll()
                 .stream()
                 .map(this::mapToOrderResponseDto)
                 .toList();

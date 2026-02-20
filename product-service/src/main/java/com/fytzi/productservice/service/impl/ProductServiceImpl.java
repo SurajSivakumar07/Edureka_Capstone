@@ -1,4 +1,5 @@
 package com.fytzi.productservice.service.impl;
+
 import com.fytzi.productservice.dto.*;
 import com.fytzi.productservice.entity.*;
 import com.fytzi.productservice.exception.CategoryNotFoundException;
@@ -26,7 +27,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponseDto createProduct(CreateProductRequest request) {
         Category category = categoryRepository.findById(request.categoryId())
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + request.categoryId()));
+                .orElseThrow(
+                        () -> new CategoryNotFoundException("Category not found with id: " + request.categoryId()));
 
         Product product = Product.builder()
                 .name(request.name())
@@ -45,18 +47,18 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Boolean getActiveProduct(Long id) {
-        return null;
+        return productRepository.existsById(id);
     }
 
     @Override
-    public Boolean  getActiveProduct(ProductListRequest productList)  {
-        List<Long> exsistingProducts=productRepository.findExistingIds(productList.getProductId());
+    public Boolean getActiveProduct(ProductListRequest productList) {
+        List<Long> exsistingProducts = productRepository.findExistingIds(productList.getProductId());
         Set<Long> existingSet = new HashSet<>(exsistingProducts);
-        List<Long> missingList= productList.getProductId().stream()
+        List<Long> missingList = productList.getProductId().stream()
                 .filter(id -> !existingSet.contains(id))
                 .toList();
-        if(!missingList.isEmpty()){
-            throw new ProductException("These are invalid product ids "+missingList.toString());
+        if (!missingList.isEmpty()) {
+            throw new ProductException("These are invalid product ids " + missingList.toString());
         }
 
         return true;
@@ -85,23 +87,31 @@ public class ProductServiceImpl implements ProductService {
                 p.getDescription(),
                 p.getQuantity(),
                 p.getPrice(),
-                p.getCategory().getId(),
-                p.getCategory().getName(),
-                p.getIsActive()
-        );
+                p.getCategory() != null ? p.getCategory().getId() : null,
+                p.getCategory() != null ? p.getCategory().getName() : null,
+                p.getIsActive());
     }
+
     @Override
     @Transactional
-    public Boolean reduceStock(OrderRequest orderRequest){
-        for(int i=0;i<orderRequest.getItems().size();i++){
+    public Boolean reduceStock(OrderRequest orderRequest) {
+        for (int i = 0; i < orderRequest.getItems().size(); i++) {
             int updated = productRepository.reserveStock(
                     orderRequest.getItems().get(i).getProductId(),
-                    orderRequest.getItems().get(i).getQuantity()
-            );
+                    orderRequest.getItems().get(i).getQuantity());
             if (updated == 0) {
-                throw new InsufficientStock("Not enough stock for " +   orderRequest.getItems().get(i).getProductId());
+                throw new InsufficientStock("Not enough stock for " + orderRequest.getItems().get(i).getProductId());
             }
         }
         return true;
+    }
+
+    @Override
+    @Transactional
+    public List<ProductResponseDto> getProductsByIds(ProductListRequest prodList) {
+        return productRepository.findAllById(prodList.getProductId())
+                .stream()
+                .map(this::mapToDto)
+                .toList();
     }
 }

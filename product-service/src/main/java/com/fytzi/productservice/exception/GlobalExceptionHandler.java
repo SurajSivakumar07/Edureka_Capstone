@@ -1,6 +1,5 @@
 package com.fytzi.productservice.exception;
 
-
 import com.fytzi.productservice.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
-
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleProductNotFound(ProductNotFoundException ex) {
         ErrorResponse error = ErrorResponse.builder()
@@ -37,7 +35,6 @@ public class GlobalExceptionHandler {
                 .build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
-
 
     @ExceptionHandler(InsufficientStock.class)
     public ResponseEntity<ErrorResponse> handleInsufficientStock(InsufficientStock ex) {
@@ -85,6 +82,5 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(body);
     }
-
 
 }
