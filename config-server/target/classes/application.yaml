@@ -9,7 +9,7 @@ spring:
       server:
         git:
           uri: https://github.com/SurajSivakumar07/config-repo
-          default-label: main # or master based on the branch
+          default-label: main 
 
 management:
   endpoints:

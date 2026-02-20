@@ -3,6 +3,8 @@ package com.fytzi.userservice.service.impl;
 import com.fytzi.userservice.dto.UserRegisterResponse;
 import com.fytzi.userservice.dto.UserResponse;
 import com.fytzi.userservice.entity.User;
+import com.fytzi.userservice.entity.Role;
+import com.fytzi.userservice.exception.InvalidRoleException;
 import com.fytzi.userservice.exception.UserException;
 import com.fytzi.userservice.exception.UserNotFoundException;
 import com.fytzi.userservice.repository.UserRepository;
@@ -20,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse getByEmail(String email) {
-        User user=userRepository.findByEmail(email)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("Invalid username or password"));
 
         return UserResponse.builder()
@@ -37,16 +39,28 @@ public class UserServiceImpl implements UserService {
             throw new UserException("User already exists with email: " + user.getEmail());
         }
 
+        // Validate Role
+        validateRole(user.getRole());
+
         // 🔐 Hash password before saving
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-
 
         return UserRegisterResponse.builder()
                 .email(user.getEmail())
                 .role(user.getRole())
                 .message("User registered successfully. Please login.")
                 .build();
+    }
 
+    private void validateRole(String role) {
+        try {
+            if (role == null) {
+                throw new InvalidRoleException("Role cannot be null");
+            }
+            Role.valueOf(role.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new InvalidRoleException("Invalid role: " + role + ". Accepted roles are ADMIN, USER");
+        }
     }
 }

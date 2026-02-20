@@ -31,11 +31,12 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
         // 🚫 Public routes
         if (path.contains("/auth") ||
-                path.contains("/users") ||
+                path.contains("/users/create") ||
                 path.contains("/v3/api-docs") ||
                 path.contains("/swagger-ui") ||
                 path.contains("/swagger-resources") ||
                 path.contains("/webjars") ||
+                path.contains("/favicon.ico") ||
                 path.contains("/error")) {
             return chain.filter(exchange);
         }
