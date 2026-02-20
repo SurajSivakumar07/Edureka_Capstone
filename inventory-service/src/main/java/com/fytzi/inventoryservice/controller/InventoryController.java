@@ -24,14 +24,12 @@ public class InventoryController {
 
     private final InventoryService inventoryService;
 
-    // USER + ADMIN
     @GetMapping("/{productId}")
     @Operation(summary = "Get product stock", description = "Retrieves the current stock level for a specific product")
     public ResponseEntity<InventoryResponse> getStock(@PathVariable Long productId) {
         return ResponseEntity.ok(inventoryService.getStock(productId));
     }
 
-    // Called by Order Service
     @PostMapping("/reserve")
     @Operation(summary = "Reserve stock", description = "Locks a certain amount of stock during the order creation process")
     public ResponseEntity<Void> reserve(@RequestBody ReserveInventoryRequest request) {
@@ -39,7 +37,6 @@ public class InventoryController {
         return ResponseEntity.ok().build();
     }
 
-    // Called by Order Service (on cancel/failure)
     @PostMapping("/release")
     @Operation(summary = "Release reserved stock", description = "Returns reserved stock back to available inventory on order cancellation")
     public ResponseEntity<Void> release(@RequestBody ReleaseInventoryRequest request) {
@@ -47,7 +44,6 @@ public class InventoryController {
         return ResponseEntity.ok().build();
     }
 
-    // ADMIN: create/update stock
     @PostMapping("/upsert")
     @Operation(summary = "Update or create stock", description = "Administrative endpoint to update or create stock entries for products")
     public ResponseEntity<java.util.List<InventoryResponse>> upsert(
