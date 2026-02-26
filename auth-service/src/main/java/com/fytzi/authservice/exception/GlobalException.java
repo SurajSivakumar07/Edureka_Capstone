@@ -1,6 +1,5 @@
 package com.fytzi.authservice.exception;
 
-
 import com.fytzi.authservice.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 public class GlobalException {
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handlUserNotFound(UserNotFoundException exception){
+    public ResponseEntity<ErrorResponse> handlUserNotFound(UserNotFoundException exception) {
 
         ErrorResponse error = ErrorResponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())

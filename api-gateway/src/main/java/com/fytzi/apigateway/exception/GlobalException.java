@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalException {
 
     @ExceptionHandler(UserNotAuthorized.class)
-    public ResponseEntity<ErrorResponse> handleUnauthorised(String messeage){
+    public ResponseEntity<ErrorResponse> handleUnauthorised(UserNotAuthorized exception) {
 
-        ErrorResponse errorResponse=ErrorResponse.builder()
+        ErrorResponse errorResponse = ErrorResponse.builder()
                 .message("User not authorized")
                 .status(401).build();
 
